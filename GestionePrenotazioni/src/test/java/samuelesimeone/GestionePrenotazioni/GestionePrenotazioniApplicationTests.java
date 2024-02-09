@@ -1,10 +1,10 @@
-package samuelesimeone.progettoW1D5;
+package samuelesimeone.GestionePrenotazioni;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProgettoW1D5ApplicationTests {
+class GestionePrenotazioniApplicationTests {
 
 	@Test
 	void contextLoads() {
