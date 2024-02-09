@@ -2,15 +2,13 @@ package samuelesimeone.GestionePrenotazioni.entities;
 
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import samuelesimeone.GestionePrenotazioni.enumerazione.Tipo;
 
 @Entity
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @Table(name = "postazioni")
 public class Postazione {
@@ -19,9 +17,10 @@ public class Postazione {
     @Setter(AccessLevel.NONE)
     private long id;
     private String descrizione;
+    @Enumerated(EnumType.STRING)
     private Tipo tipo;
     private int n_max;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "edificio_id")
     private Edificio edificio;
     private boolean libero;
