@@ -16,6 +16,7 @@ import samuelesimeone.GestionePrenotazioni.service.PostazioneService;
 import samuelesimeone.GestionePrenotazioni.service.UtenteService;
 
 import java.util.Locale;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
@@ -85,6 +86,7 @@ public class DBRunner implements CommandLineRunner {
             postazioneService.save(ctx.getBean("Postazione10", Postazione.class));
             postazioneService.save(ctx.getBean("Postazione11", Postazione.class));
             postazioneService.save(ctx.getBean("Postazione12", Postazione.class));
+
         }catch (Exception e){
             System.err.println(e.getMessage());
         }finally {

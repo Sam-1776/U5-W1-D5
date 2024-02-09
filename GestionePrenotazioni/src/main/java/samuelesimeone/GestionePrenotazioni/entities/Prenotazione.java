@@ -17,10 +17,10 @@ public class Prenotazione {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private long id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "postazione_id")
     private Postazione postazione;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "utente_username")
     private Utente utente;
     private LocalDate data;

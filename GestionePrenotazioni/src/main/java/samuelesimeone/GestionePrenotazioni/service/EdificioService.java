@@ -7,6 +7,8 @@ import samuelesimeone.GestionePrenotazioni.dao.EdificioDAO;
 import samuelesimeone.GestionePrenotazioni.entities.Edificio;
 import samuelesimeone.GestionePrenotazioni.entities.Postazione;
 
+import java.util.List;
+
 @Service
 public class EdificioService {
 
@@ -15,5 +17,9 @@ public class EdificioService {
 
     public void save(Edificio edificio){
         edificioDAO.save(edificio);
+    }
+
+    public List<Edificio> findByCitta(String citta){
+        return edificioDAO.findByCittaIgnoreCase(citta);
     }
 }
