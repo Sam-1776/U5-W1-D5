@@ -12,6 +12,7 @@ import samuelesimeone.GestionePrenotazioni.enumerazione.Tipo;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "postazioni")
 public class Postazione {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

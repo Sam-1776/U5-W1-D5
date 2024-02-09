@@ -11,6 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "utenti")
 public class Utente {
     @Id
     @Setter(AccessLevel.NONE)
