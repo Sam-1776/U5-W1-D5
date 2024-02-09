@@ -14,4 +14,7 @@ import java.util.List;
 public interface PrenotazioneDAO extends JpaRepository<Prenotazione, Long> {
     List<Prenotazione> findByUtenteAndData(Utente utente, LocalDate data);
     List<Prenotazione> findByPostazioneAndData(Postazione postazione, LocalDate data);
+
+    List<Prenotazione> findByUtente(Utente utente);
+    List<Prenotazione> findByData(LocalDate data);
 }

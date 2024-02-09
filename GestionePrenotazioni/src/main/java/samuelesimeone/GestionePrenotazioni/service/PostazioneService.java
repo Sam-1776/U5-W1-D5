@@ -21,9 +21,23 @@ public class PostazioneService {
         postazioneDAO.save(postazione);
     }
 
+    public List<Postazione> FindAllElement(){
+        return  postazioneDAO.findAll();
+    }
+
     public void findByIdAndUpdate(long Id, Postazione postazione) {
         Postazione found = this.findById(Id);
         found.setLibero(false);
+        found.setTipo(postazione.getTipo());
+        found.setDescrizione(postazione.getDescrizione());
+        found.setEdificio(postazione.getEdificio());
+        found.setN_max(postazione.getN_max());
+        postazioneDAO.save(found);
+    }
+
+    public void findByIdAndUpdateTru(long Id, Postazione postazione) {
+        Postazione found = this.findById(Id);
+        found.setLibero(true);
         found.setTipo(postazione.getTipo());
         found.setDescrizione(postazione.getDescrizione());
         found.setEdificio(postazione.getEdificio());

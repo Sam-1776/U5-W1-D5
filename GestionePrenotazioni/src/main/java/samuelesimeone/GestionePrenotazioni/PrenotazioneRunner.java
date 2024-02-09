@@ -7,6 +7,7 @@ import samuelesimeone.GestionePrenotazioni.entities.Edificio;
 import samuelesimeone.GestionePrenotazioni.entities.Postazione;
 import samuelesimeone.GestionePrenotazioni.entities.Prenotazione;
 import samuelesimeone.GestionePrenotazioni.entities.Utente;
+import samuelesimeone.GestionePrenotazioni.enumerazione.Tipo;
 import samuelesimeone.GestionePrenotazioni.exceptions.ItemNotFound;
 import samuelesimeone.GestionePrenotazioni.exceptions.UtenteEsistente;
 import samuelesimeone.GestionePrenotazioni.service.EdificioService;
@@ -48,6 +49,9 @@ public class PrenotazioneRunner implements CommandLineRunner {
                 LocalDate day = LocalDate.parse(data.nextLine());
                 makePrenotazioneOggi(day);
                 break;
+            case 3:
+                checkPrenotazioni();
+                break;
             default:
                 System.out.println("Arrivederci");
                 break;
@@ -74,11 +78,15 @@ public class PrenotazioneRunner implements CommandLineRunner {
 
 
     public void makePrenotazioneOggi(LocalDate data){
+        if (prenotazioneService.findByData(data).isEmpty()){
+            List<Postazione> postazioneList = postazioneService.FindAllElement();
+            postazioneList.forEach(element -> postazioneService.findByIdAndUpdateTru(element.getId(), element));
+        }
         Scanner scanner = new Scanner(System.in);
         System.out.println("Inserire username");
         String str = scanner.nextLine();
         Utente user = utenteService.findByUsername(str);
-        if (prenotazioneService.findByUtente(user,data).isEmpty()){
+        if (prenotazioneService.findByUtenteAndData(user,data).isEmpty()){
             System.out.println("Inserire Città desiderato \n" + "Milano o Roma");
             String citta = scanner.nextLine();
             List<Edificio> edificioList = edificioService.findByCitta(citta);
@@ -93,6 +101,10 @@ public class PrenotazioneRunner implements CommandLineRunner {
             if (prenotazioneService.findByPostazione(postazione, data).size() == postazione.getN_max()){
                 postazioneService.findByIdAndUpdate(idP,postazione);
                 System.out.println("Non ci sono posti liberi per oggi");
+            }else if (postazione.getTipo().equals(Tipo.PRIVATO) || postazione.getTipo().equals(Tipo.SALA_RIUNIONI)){
+                prenotazioneService.save(new Prenotazione(postazione, user, data));
+                postazioneService.findByIdAndUpdate(idP,postazione);
+                System.out.println("Prenotazione Salvata");
             }else {
                 prenotazioneService.save(new Prenotazione(postazione, user, data));
                 System.out.println("Prenotazione Salvata");
@@ -100,6 +112,15 @@ public class PrenotazioneRunner implements CommandLineRunner {
         } else {
             System.out.println("Hai già una prenotazione per oggi");
         }
+        scanner.close();
+    }
+
+    public void checkPrenotazioni(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Inserire username");
+        String str = scanner.nextLine();
+        Utente user = utenteService.findByUsername(str);
+        prenotazioneService.findByUtente(user).forEach(System.out::println);
     }
 
 

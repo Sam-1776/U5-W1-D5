@@ -23,11 +23,19 @@ public class PrenotazioneService {
 
     }
 
-    public List<Prenotazione> findByUtente(Utente utente, LocalDate data){
+    public List<Prenotazione> findByUtenteAndData(Utente utente, LocalDate data){
         return prenotazioneDAO.findByUtenteAndData(utente, data);
     }
 
     public List<Prenotazione> findByPostazione(Postazione postazione, LocalDate data){
         return prenotazioneDAO.findByPostazioneAndData(postazione, data);
+    }
+
+    public List<Prenotazione> findByData(LocalDate data){
+        return prenotazioneDAO.findByData(data);
+    }
+
+    public List<Prenotazione> findByUtente(Utente utente){
+        return prenotazioneDAO.findByUtente(utente);
     }
 }

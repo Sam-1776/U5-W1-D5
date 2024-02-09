@@ -8,7 +8,6 @@ import samuelesimeone.GestionePrenotazioni.enumerazione.Tipo;
 @Entity
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @Table(name = "postazioni")
 public class Postazione {
@@ -31,5 +30,16 @@ public class Postazione {
         this.n_max = n_max;
         this.edificio = edificio;
         this.libero = true;
+    }
+
+    @Override
+    public String toString() {
+        return "Postazione{" +
+                "id=" + id +
+                ", descrizione='" + descrizione + '\'' +
+                ", tipo=" + tipo +
+                ", n_max=" + n_max +
+                ", edificio=" + edificio +
+                '}';
     }
 }
